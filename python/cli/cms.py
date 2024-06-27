@@ -14,6 +14,7 @@
 
 import base64
 import os
+import sys
 from typing import List
 
 import click
@@ -175,7 +176,7 @@ def register_data_policy(ctx):
     common = config["common"]
     ownered = config["register_data_policy"]
     cert_pems, private_key = read_rsa_keypair(common)
-
+    print("register data policy:", ownered)
     ctx.obj.create_data_policy(
         common["party_id"],
         ownered["scope"],

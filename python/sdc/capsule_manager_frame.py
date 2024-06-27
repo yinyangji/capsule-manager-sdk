@@ -17,6 +17,7 @@ from dataclasses import dataclass
 from typing import List, Union
 
 import grpc
+import sys
 from cryptography import x509
 from cryptography.hazmat.primitives import serialization
 from cryptography.hazmat.primitives.asymmetric import rsa
@@ -48,6 +49,7 @@ RESOURCE_URI = "resource_uri"
 DATA_KEY_B64 = "data_key_b64"
 RULE_ID = "rule_id"
 GRANTEE_PARTY_IDS = "grantee_party_ids"
+LIMIT_TIMES = "limit_times"
 COLUMNS = "columns"
 GLOBAL_CONSTRAINTS = "global_constraints"
 OP_CONSTRAINS = "op_constraints"
@@ -396,10 +398,12 @@ class CapsuleManagerFrame(object):
         request.owner_party_id = owner_party_id
         request.scope = scope
         request.policy.data_uuid = data_uuid
-
+        print("Rules:", rules)
         for rule in rules:
+            print("rule:", rule)    
             rule_add = request.policy.rules.add()
             rule_add.rule_id = rule.get(RULE_ID)
+            rule_add.limit_times = rule.get(LIMIT_TIMES)
             if rule.get(GRANTEE_PARTY_IDS) is not None:
                 rule_add.grantee_party_ids.extend(rule.get(GRANTEE_PARTY_IDS))
             if rule.get(COLUMNS) is not None:

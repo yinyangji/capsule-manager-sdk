@@ -69,6 +69,9 @@ register_data_policy:
       rule_id:
       # (required) List[str]
       grantee_party_ids:
+
+      #(optional) int 
+      limit_times:
       # (required) List[str]
       columns:
       # (optional) List[str]
